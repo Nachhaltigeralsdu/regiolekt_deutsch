@@ -1,434 +1,1056 @@
-<!DOCTYPE html>
-<html lang="de">
+<!doctype html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Regiolekte in Deutschland</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Global Styles */
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
-            transition: background-color 0.5s ease, color 0.5s ease;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perú – Arte, Música y Lenguas</title>
 
-        h1, h2, h3, h4 {
-            font-family: 'Arial', sans-serif;
-            margin: 0.5rem 0;
-        }
+  <style>
+    :root{
+      --bg:#ffffff;
+      --surface:#f6f7fb;
+      --card:#ffffff;
+      --text:#101218;
+      --muted:#5b6272;
+      --line:rgba(16,18,24,.10);
+      --shadow:0 18px 50px rgba(16,18,24,.10);
+      --radius:18px;
+      --max:1040px;
+      --accent:#ff6a3d;
+      --accent2:#6b5cff;
+    }
 
-        h1 {
-            color: #333;
-            transition: color 0.5s ease;
-        }
+    body.dark{
+      --bg:#0b0f14;
+      --surface:#0f141c;
+      --card:#0f141c;
+      --text:#f2f4f7;
+      --muted:#aab2c0;
+      --line:rgba(255,255,255,.10);
+      --shadow:0 20px 70px rgba(0,0,0,.55);
+    }
 
-        a {
-            text-decoration: none;
-            color: #007BFF;
-            transition: color 0.3s ease;
-        }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 12% -18%, rgba(107,92,255,.10), transparent 60%),
+        radial-gradient(1000px 650px at 100% 10%, rgba(255,106,61,.10), transparent 55%),
+        var(--bg);
+      line-height:1.6;
+    }
 
-        a:hover {
-            color: #0056b3;
-        }
+    a{color:inherit;text-decoration:none}
+    a:hover{opacity:.9}
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    #progress{
+      position:fixed;
+      top:0; left:0;
+      height:3px;
+      width:0%;
+      background:linear-gradient(90deg,var(--accent2),var(--accent));
+      z-index:9999;
+    }
 
-        /* Navigation Styles */
-        nav {
-            background-color: rgba(255, 255, 255, 0.8); /* Transparent, angepasst an den Hintergrund */
-            color: #333;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: background-color 0.5s ease, color 0.5s ease;
-        }
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 96px}
 
-        nav.scrolled {
-            background-color: rgba(51, 51, 51, 0.8); /* Dunklere Farbe nach Scrollen */
-            color: #fff;
-        }
+    header{
+      position:sticky;
+      top:0;
+      z-index:999;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,.70);
+      border-bottom:1px solid var(--line);
+    }
+    body.dark header{background: rgba(11,15,20,.62)}
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0;
-            padding: 0;
-        }
+    .nav{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:14px 18px;
+      display:grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap:14px;
+      align-items:center;
+    }
 
-        nav ul li {
-            margin: 0 1rem;
-        }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:900;
+      letter-spacing:.2px;
+    }
 
-        nav ul li a {
-            color: inherit; /* Passt die Linkfarbe an den Text an */
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+    .center{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
 
-        nav ul li a:hover, nav ul li a.active {
-            background-color: #007BFF;
-            color: #fff;
-        }
+    .right{
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
 
-        /* Hamburger Menu Styles */
-        .menu-icon {
-            display: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-        }
+    .pill{
+      height:36px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:0 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.65);
+      font-weight:800;
+      transition: transform .14s ease, background .14s ease;
+    }
+    body.dark .pill{background: rgba(255,255,255,.06)}
+    .pill:hover{transform: translateY(-1px)}
+    .pill.active{
+      border-color: rgba(255,106,61,.45);
+      background: rgba(255,106,61,.12);
+    }
 
-        .menu-icon.active + .nav-menu {
-            display: block;
-        }
+    .btn{
+      cursor:pointer;
+      user-select:none;
+    }
 
-        .nav-menu {
-            display: flex;
-        }
+    .btn.primary{
+      border-color: rgba(107,92,255,.40);
+      background: linear-gradient(90deg, rgba(107,92,255,.18), rgba(255,106,61,.14));
+    }
 
-        @media (max-width: 768px) {
-            .menu-icon {
-                display: block;
-            }
+    @media (max-width: 920px){
+      .nav{grid-template-columns:1fr; gap:10px}
+      .right{justify-content:flex-start}
+    }
 
-            .nav-menu {
-                display: none;
-                flex-direction: column;
-                background-color: rgba(255, 255, 255, 0.9);
-                position: absolute;
-                top: 60px;
-                right: 0;
-                width: 200px;
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            }
+    .card{
+      background: var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
 
-            nav ul {
-                flex-direction: column;
-            }
+    .hero{
+      padding:36px 0 14px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .hero{grid-template-columns:1fr}
+    }
 
-            nav ul li {
-                margin: 0.5rem 0;
-            }
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(38px, 6vw, 68px);
+      letter-spacing:-.8px;
+      line-height:1.04;
+    }
 
-            nav ul li a {
-                padding: 1rem;
-            }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:17px;
+      max-width:72ch;
+    }
 
-            .menu-icon.active + .nav-menu {
-                display: flex;
-            }
-        }
+    .heroLeft{padding:20px}
+    .heroActions{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .kpis{display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-top:14px}
+    @media (max-width: 560px){ .kpis{grid-template-columns:1fr} }
 
-        /* Hero Section */
-        .hero {
-            height: 90vh;
-            background: url('https://source.unsplash.com/1600x900/?germany,landscape') no-repeat center center/cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            text-align: center;
-            flex-direction: column;
-            padding-top: 5rem; /* Platz für die Navigationsleiste */
-        }
+    .kpi{
+      border:1px solid var(--line);
+      background: var(--surface);
+      border-radius: 16px;
+      padding:12px;
+    }
+    body.dark .kpi{background: rgba(255,255,255,.04)}
+    .kpi .t{font-weight:950}
+    .kpi .d{color:var(--muted); font-size:13px; margin-top:4px}
 
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
+    .heroMedia{
+      overflow:hidden;
+      position:relative;
+      cursor: zoom-in;
+    }
+    .heroMedia img{
+      width:100%;
+      height:100%;
+      min-height:320px;
+      object-fit:cover;
+      display:block;
+      background:#111;
+    }
+    .heroMedia .overlay{
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.06), rgba(0,0,0,.45));
+    }
+    .heroMedia .cap{
+      position:absolute;
+      left:14px;
+      right:14px;
+      bottom:14px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.32);
+      color:#fff;
+      font-weight:900;
+      font-size:13px;
+    }
 
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+    .section{
+      padding:20px 0 0;
+      scroll-margin-top: 96px;
+    }
+    .secHead{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:14px;
+      flex-wrap:wrap;
+      margin: 14px 0 12px;
+    }
+    h2{margin:0; font-size:30px; letter-spacing:-.2px}
+    .lead{margin:0; color:var(--muted); max-width:82ch}
 
-        /* Image Below Title */
-        .hero img {
-            width: 50%;
-            height: auto;
-            margin-top: 2rem;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
+    .panel{padding:18px}
+    .cols{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media (max-width: 920px){ .cols{grid-template-columns:1fr} }
 
-        .hero img:hover {
-            transform: scale(1.05);
-        }
+    .list{margin:10px 0 0; padding-left:18px}
+    .list li{margin:6px 0}
 
-        /* Main Content Styles */
-        main {
-            padding: 4rem 0;
-        }
+    .carouselBox{padding:16px}
+    .carouselTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .controls{display:flex; gap:10px; align-items:center}
+    .gbtn{
+      width:44px; height:36px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: var(--surface);
+      cursor:pointer;
+      font-weight:950;
+      color:var(--text);
+    }
+    body.dark .gbtn{background: rgba(255,255,255,.05)}
+    .gbtn:disabled{opacity:.35; cursor:not-allowed}
+    .ginfo{min-width:84px; text-align:center; color:var(--muted); font-weight:900}
 
-        section {
-            margin-bottom: 4rem;
-        }
+    .viewport{
+      border-radius:16px;
+      border:1px solid var(--line);
+      overflow:hidden;
+      background:#000;
+      scroll-snap-type:x mandatory;
+      display:flex;
+      overflow-x:auto;
+      scrollbar-width:none;
+    }
+    .viewport::-webkit-scrollbar{display:none}
 
-        section h2 {
-            margin-bottom: 1rem;
-        }
+    .slide{
+      min-width:100%;
+      scroll-snap-align:start;
+      position:relative;
+      cursor: zoom-in;
+      user-select:none;
+    }
+    .slide img{
+      width:100%;
+      height:440px;
+      object-fit:cover;
+      display:block;
+      background:#111;
+    }
+    @media (max-width: 920px){ .slide img{height:320px} }
 
-        section p {
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-        }
+    .cap2{
+      position:absolute;
+      left:14px;
+      bottom:14px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.38);
+      color:#fff;
+      font-weight:900;
+      font-size:13px;
+    }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
+    .dots{
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      margin-top:10px;
+    }
+    .dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      border:0;
+      background: rgba(120,130,150,.35);
+      cursor:pointer;
+    }
+    .dot.on{background: linear-gradient(90deg,var(--accent2),var(--accent))}
 
-        @media (min-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
+    .hint{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .hint span{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: var(--surface);
+    }
+    body.dark .hint span{background: rgba(255,255,255,.04)}
 
-        /* Video Section */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            max-width: 100%;
-            background: #000;
-            border-radius: 10px;
-        }
+    .quiz{
+      margin-top:14px;
+      padding:14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: var(--surface);
+    }
+    body.dark .quiz{background: rgba(255,255,255,.04)}
+    .quiz h3{margin:0 0 8px; font-size:16px}
+    .qtext{font-weight:950; margin:0 0 8px}
+    .opt{display:block; margin:8px 0}
+    .opt input{transform: translateY(1px); margin-right:8px}
+    .feedback{margin-top:10px; font-weight:950}
+    .feedback.ok{color:#1fc36b}
+    .feedback.bad{color:#ff4d4d}
 
-        .video-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-        }
+    .ytgrid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+    @media (max-width: 980px){ .ytgrid{grid-template-columns:1fr} }
+    .ytcard{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: var(--surface);
+    }
+    body.dark .ytcard{background: rgba(255,255,255,.04)}
+    .ytTitle{font-weight:950; margin:0 0 10px}
+    .yt{
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      aspect-ratio:16/9;
+      background:#000;
+    }
+    .yt iframe{width:100%; height:100%; border:0; display:block}
 
-        /* Footer Styles */
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            background-color: #f5f5f5;
-            color: #333;
-            transition: background-color 0.5s ease, color 0.5s ease;
-        }
+    #toTop{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.75);
+      color: var(--text);
+      border-radius:999px;
+      height:42px;
+      padding:0 14px;
+      cursor:pointer;
+      opacity:0;
+      transform: translateY(8px);
+      transition:.18s ease;
+      z-index:2000;
+    }
+    body.dark #toTop{background: rgba(255,255,255,.06); color: var(--text)}
+    #toTop.show{opacity:1; transform: translateY(0)}
 
-        body.dark-mode footer {
-            background-color: #333;
-            color: #f5f5f5;
-        }
+    .lightbox{
+      position:fixed;
+      inset:0;
+      display:none;
+      place-items:center;
+      background: rgba(0,0,0,.78);
+      z-index:9000;
+      padding:18px;
+    }
+    .lightbox.open{display:grid}
+    .lightbox img{
+      max-width: min(100%, 1100px);
+      max-height: 82vh;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow: 0 28px 80px rgba(0,0,0,.55);
+      background:#111;
+    }
+    .lbTop{
+      position:absolute;
+      top:14px;
+      right:14px;
+      display:flex;
+      gap:10px;
+    }
+    .lbBtn{
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.35);
+      color:#fff;
+      border-radius:999px;
+      height:38px;
+      padding:0 14px;
+      cursor:pointer;
+      font-weight:950;
+    }
 
-        /* Dark Mode Styles */
-        body.dark-mode {
-            background-color: #333; /* Gleiche Farbe wie die Navbar im Dunkelmodus */
-            color: #f5f5f5;
-        }
+    .reveal{opacity:0; transform: translateY(10px); transition: opacity .45s ease, transform .45s ease}
+    .reveal.on{opacity:1; transform: translateY(0)}
 
-        body.dark-mode nav {
-            background-color: rgba(51, 51, 51, 0.8);
-            color: #f5f5f5;
-        }
-
-        body.dark-mode nav ul li a {
-            color: #f5f5f5;
-        }
-
-        body.dark-mode h1 {
-            color: #f5f5f5;
-        }
-
-        /* Transition for Color Mode */
-        body, nav, footer, h1 {
-            transition: background-color 0.5s ease, color 0.5s ease;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero img {
-                width: 80%;
-            }
-
-            nav ul {
-                flex-direction: column;
-            }
-
-            nav ul li {
-                margin: 0.5rem 0;
-            }
-        }
-    </style>
+    footer{
+      margin-top: 36px;
+      padding-top: 14px;
+      border-top:1px solid var(--line);
+      color: var(--muted);
+      font-size:14px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+  </style>
 </head>
-<body>
-    <!-- Navigation -->
-    <nav id="navbar">
-        <div class="container">
-            <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
-            <ul class="nav-menu">
-                <li><a href="#" class="logo">Regiolekte</a></li>
-                <li><a href="#about" class="nav-link">Über</a></li>
-                <li><a href="#features" class="nav-link">Merkmale</a></li>
-                <li><a href="#video" class="nav-link">Video</a></li>
-                <li><a href="javascript:void(0)" id="dark-mode-toggle"><i class="fas fa-moon"></i></a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
+<body>
+  <div id="progress"></div>
+
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <span>Perú</span>
+      </div>
+
+      <nav class="center" aria-label="Navegación">
+        <a class="pill navlink" href="#arte" data-target="arte">Arte</a>
+        <a class="pill navlink" href="#musica" data-target="musica">Música</a>
+        <a class="pill navlink" href="#lenguas" data-target="lenguas">Lenguas</a>
+      </nav>
+
+      <div class="right">
+        <span class="pill">Paul Liechti</span>
+        <button class="pill btn primary" id="themeBtn" type="button">Tema</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
     <section class="hero">
-        <div class="container">
-            <h1>Regiolekte in Deutschland</h1>
-            <img src="Fotolia_37020572_S-520x413.jpg" alt="Regiolekt Landschaft">
+      <div class="card heroLeft reveal">
+        <h1>Perú</h1>
+        <p class="sub">
+          Arte, música y lenguas. Galería limpia, videos correctos y pequeñas interacciones.
+        </p>
+
+        <div class="heroActions">
+          <a class="pill btn" href="#arte">Ver arte</a>
+          <a class="pill btn" href="#musica">Ver videos</a>
+          <button class="pill btn" id="randomCover" type="button">Cambiar portada</button>
         </div>
+
+        <div class="kpis">
+          <div class="kpi"><div class="t">3</div><div class="d">temas</div></div>
+          <div class="kpi"><div class="t">5</div><div class="d">imágenes de arte</div></div>
+          <div class="kpi"><div class="t">3</div><div class="d">videos</div></div>
+        </div>
+      </div>
+
+      <div class="card heroMedia reveal" id="heroMedia">
+        <img id="heroImg" alt="Arte" loading="eager">
+        <div class="overlay"></div>
+        <div class="cap">
+          <span class="tag">Toca para ampliar</span>
+          <span class="tag" id="clock">00.00</span>
+        </div>
+      </div>
     </section>
 
-    <!-- Main Content -->
-    <main class="container">
-        <!-- About Section -->
-        <section id="about">
-            <h2>Was ist ein Regiolekt?</h2>
-            <p>
-                Ein Regiolekt ist eine spezielle Variante einer Sprache, die in einer bestimmten Region gesprochen wird. 
-                Er ist oft stark mit der lokalen Kultur und Identität verbunden und unterscheidet sich von der Standardsprache 
-                des Landes durch besondere Ausdrücke, Aussprachen und manchmal auch grammatikalische Besonderheiten.
-            </p>
-            <p>
-                Regiolekte haben tiefe Wurzeln in der Geschichte und Kultur der Regionen, in denen sie gesprochen werden. 
-                Oft sind sie eine Quelle des Stolzes für die Einwohner dieser Regionen und tragen zur regionalen Identität bei. 
-                In Deutschland gibt es eine Vielzahl von Regiolekten, die in verschiedenen Bundesländern und Regionen gesprochen werden.
-            </p>
-        </section>
+    <section class="section reveal" id="arte">
+      <div class="secHead">
+        <div>
+          <h2>Arte en Perú</h2>
+          <p class="lead">
+            El arte en Perú tiene una historia muy larga. Empieza con las culturas antiguas como los incas.
+            Ellos hacían esculturas, templos y objetos de oro y piedra.
+          </p>
+        </div>
+        <button class="pill btn" id="arteDato" type="button">Dato</button>
+      </div>
 
-        <!-- Features Section -->
-        <section id="features">
-            <h2>Merkmale von Regiolekten</h2>
-            
-                <div>
-                    <h3>Geografische Verbundenheit</h3>
-                    <p>
-                        Regiolekte werden in bestimmten Regionen gesprochen und spiegeln oft die geografische, kulturelle und soziale 
-                        Isolation einer Gemeinschaft wider. Zum Beispiel gibt es im Deutschen verschiedene Regiolekte wie das Bairische 
-                        in Bayern oder das Sächsische in Sachsen.
-                    </p>
-                </div>
-            
+      <div class="card panel cols">
+        <div>
+          <p>
+            En Perú también hay arte tradicional. Muchas personas hacen tejidos de colores con lana de alpaca.
+            Estos tejidos muestran la cultura y la vida en los Andes.
+          </p>
 
-            <h3>Unterschiede zur Standardsprache</h3>
-            <p>
-                Regiolekte unterscheiden sich oft in der Aussprache, im Wortschatz und manchmal auch in der Grammatik von der 
-                Standardsprache.
-            </p>
-            <img src="so_geht_saechsisch_logo.png" alt="Sächsischer Regiolekt" style="width: 100%; height: auto; border-radius: 10px; margin-top: 1.5rem;">
-            <h3>Soziale Funktion und Wahrnehmung</h3>
-            <p>
-                Regiolekte tragen zur sozialen Identität bei und können sowohl ein Gefühl der Zugehörigkeit als auch der 
-                Abgrenzung fördern. In einigen Kontexten werden sie stolz verwendet, in anderen könnten sie auch negativ 
-                bewertet werden.
-            </p>
+          <p>
+            Hoy existe también arte moderno en ciudades como Lima. Los artistas pintan murales y cuadros sobre
+            la historia y la sociedad de Perú.
+          </p>
 
-            <h3>Veränderlichkeit und Schutz</h3>
-            <p>
-                Wie andere Dialekte sind auch Regiolekte Veränderungen unterworfen. Sie können durch Medien, Migration und 
-                Bildung beeinflusst werden. In einigen Regionen gibt es Bemühungen, sie zu bewahren und zu fördern, besonders 
-                wenn sie als bedroht gelten.
-            </p>
+          <div class="quiz">
+            <h3>Cuestionario</h3>
+            <div class="qtext">¿Qué muestra la cultura y la vida en los Andes?</div>
+            <label class="opt"><input type="radio" name="qArte" value="0">Objetos modernos sin historia</label>
+            <label class="opt"><input type="radio" name="qArte" value="1">Tejidos de colores con lana de alpaca</label>
+            <label class="opt"><input type="radio" name="qArte" value="0">Solo edificios nuevos</label>
+            <button class="pill btn primary" data-check="qArte" data-ans="1" type="button">Comprobar</button>
+            <div class="feedback" data-out="qArte"></div>
+          </div>
 
-            <h3>Beziehung zu anderen sprachlichen Formen</h3>
-            <p>
-                Neben Regiolekten und der Standardsprache gibt es auch Dialekte und Soziolekte. Dialekte sind oft stärker von 
-                der Standardsprache abweichend und geografisch sehr begrenzt, während Soziolekte sprachliche Besonderheiten 
-                einer bestimmten sozialen Gruppe darstellen.
-            </p>
-        </section>
+          <div class="quiz">
+            <h3>Ejemplos de arte peruano</h3>
+            <ul class="list">
+              <li>cerámica tradicional</li>
+              <li>tejidos andinos</li>
+              <li>arquitectura inca</li>
+              <li>pintura moderna</li>
+            </ul>
+            <p id="arteOut" style="margin:10px 0 0; color:var(--muted); font-weight:850"></p>
+          </div>
+        </div>
 
-        <!-- Video Section -->
-        <section id="video">
-            <h2>Video über Sächsische</h2>
-            <div class="video-container">
-                <video controls>
-                    <source src="Sächsischer Dialekt_ Gemütlich, aber schwer verständlich_ (1).mp4" type="video/mp4">
-                    Ihr Browser unterstützt dieses Videoformat nicht.
-                </video>
+        <div class="carouselBox">
+          <div class="carouselTop">
+            <div style="font-weight:950">Galería de arte</div>
+            <div class="controls">
+              <button class="gbtn" id="prev" type="button" aria-label="Anterior">←</button>
+              <div class="ginfo" id="info">1 / 5</div>
+              <button class="gbtn" id="next" type="button" aria-label="Siguiente">→</button>
             </div>
-        </section>
-    </main>
+          </div>
 
-    <!-- Footer -->
+          <div class="viewport" id="viewport" aria-label="Galería">
+            <figure class="slide" data-full="" data-src="https://1.bp.blogspot.com/-JWb900VtX3g/VtyBKELIE9I/AAAAAAAAL3o/lVMx5CkVdR4/s1600/dawnofeden.jpg">
+              <img loading="lazy" alt="Arte 1">
+              <div class="cap2">Arte 1</div>
+            </figure>
+
+            <figure class="slide" data-full="" data-src="https://th.bing.com/th/id/OIP.yFVHZ2r5acyH10op4oWqrAHaEK">
+              <img loading="lazy" alt="Arte 2">
+              <div class="cap2">Arte 2</div>
+            </figure>
+
+            <figure class="slide" data-full="" data-src="https://i.pinimg.com/736x/e7/45/97/e7459714e59cc31491409fe4b17dc3c6.jpg">
+              <img loading="lazy" alt="Arte 3">
+              <div class="cap2">Arte 3</div>
+            </figure>
+
+            <figure class="slide" data-full="" data-src="https://images.artbrokerage.com/artthumb/valverde_166889_1/808x808/Rossmary_Valverde_Calle_De_Cuzco_2001_24x36__Peru.jpg">
+              <img loading="lazy" alt="Arte 4">
+              <div class="cap2">Arte 4</div>
+            </figure>
+
+            <figure class="slide" data-full="" data-src="https://tse3.mm.bing.net/th/id/OIP.385XJ65N2TNqDBK5jWiKjwHaEL">
+              <img loading="lazy" alt="Arte 5">
+              <div class="cap2">Arte 5</div>
+            </figure>
+          </div>
+
+          <div class="dots" id="dots" aria-label="Puntos"></div>
+
+          <div class="hint">
+            <span>Deslizar</span>
+            <span>Teclas ← →</span>
+            <span>Clic para ampliar</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="musica">
+      <div class="secHead">
+        <div>
+          <h2>Música de Perú</h2>
+          <p class="lead">
+            La música peruana mezcla tradiciones indígenas, españolas y africanas.
+          </p>
+        </div>
+        <button class="pill btn" id="muteBtn" type="button">Silenciar</button>
+      </div>
+
+      <div class="card panel cols">
+        <div>
+          <p>
+            Un instrumento muy importante es la quena, una flauta andina. Otro instrumento es el charango,
+            una guitarra pequeña.
+          </p>
+
+          <p>
+            En los Andes la música es tranquila y usa flautas y tambores. En la costa hay música más rápida y alegre.
+          </p>
+
+          <p>
+            Un baile muy conocido es la Marinera. También es famosa la música andina con instrumentos tradicionales.
+          </p>
+
+          <div class="quiz">
+            <h3>Cuestionario</h3>
+            <div class="qtext">¿Qué instrumento es una flauta andina?</div>
+            <label class="opt"><input type="radio" name="qMusica" value="1">La quena</label>
+            <label class="opt"><input type="radio" name="qMusica" value="0">El piano</label>
+            <label class="opt"><input type="radio" name="qMusica" value="0">El saxofón</label>
+            <button class="pill btn primary" data-check="qMusica" data-ans="1" type="button">Comprobar</button>
+            <div class="feedback" data-out="qMusica"></div>
+          </div>
+
+          <div class="quiz">
+            <h3>Ejemplos de música peruana</h3>
+            <ul class="list">
+              <li>música andina</li>
+              <li>Marinera</li>
+              <li>festejo</li>
+              <li>huayno</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <div class="ytgrid" aria-label="Videos">
+            <div class="ytcard">
+              <div class="ytTitle">Video 1</div>
+              <div class="yt">
+                <iframe class="ytframe"
+                  src="https://www.youtube-nocookie.com/embed/M_gSydN_BYM"
+                  title="Video 1"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+            </div>
+
+            <div class="ytcard">
+              <div class="ytTitle">Video 2</div>
+              <div class="yt">
+                <iframe class="ytframe"
+                  src="https://www.youtube-nocookie.com/embed/qsNEu750zok"
+                  title="Video 2"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+            </div>
+
+            <div class="ytcard">
+              <div class="ytTitle">Video 3</div>
+              <div class="yt">
+                <iframe class="ytframe"
+                  src="https://www.youtube-nocookie.com/embed/XOSbuaX4AMY"
+                  title="Video 3"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="lenguas">
+      <div class="secHead">
+        <div>
+          <h2>Lenguas en Perú</h2>
+          <p class="lead">
+            En Perú se hablan diferentes lenguas. La lengua principal es el español. También existen el quechua y el aimara.
+          </p>
+        </div>
+        <button class="pill btn" id="sayBtn" type="button">Hablar</button>
+      </div>
+
+      <div class="card panel cols">
+        <div>
+          <p>
+            La mayoría de las personas hablan español todos los días. Muchas personas son bilingües,
+            por ejemplo español y quechua.
+          </p>
+
+          <div class="quiz">
+            <h3>Cuestionario</h3>
+            <div class="qtext">¿Cuál es la lengua principal en Perú?</div>
+            <label class="opt"><input type="radio" name="qLenguas" value="1">El español</label>
+            <label class="opt"><input type="radio" name="qLenguas" value="0">El ruso</label>
+            <label class="opt"><input type="radio" name="qLenguas" value="0">El japonés</label>
+            <button class="pill btn primary" data-check="qLenguas" data-ans="1" type="button">Comprobar</button>
+            <div class="feedback" data-out="qLenguas"></div>
+          </div>
+
+          <div class="quiz">
+            <h3>Lenguas importantes en Perú</h3>
+            <ul class="list">
+              <li>español</li>
+              <li>quechua</li>
+              <li>aimara</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <div class="quiz">
+            <h3>Frases en español y quechua</h3>
+            <p id="sayOut" style="margin:0 0 10px; color:var(--muted); font-weight:850">
+              Pulsa una frase para escucharla
+            </p>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px">
+              <button class="pill btn" data-say="Hola" data-lang="es-ES" type="button">Hola</button>
+              <button class="pill btn" data-say="Buenos días" data-lang="es-ES" type="button">Buenos días</button>
+              <button class="pill btn" data-say="¿Qué tal?" data-lang="es-ES" type="button">¿Qué tal?</button>
+              <button class="pill btn" data-say="Gracias" data-lang="es-ES" type="button">Gracias</button>
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap">
+              <button class="pill btn" data-say="Rimaykullayki" data-lang="quz" type="button">Quechua hola Rimaykullayki</button>
+              <button class="pill btn" data-say="Allillanchu" data-lang="quz" type="button">Quechua hola Allillanchu</button>
+              <button class="pill btn" data-say="Añay" data-lang="quz" type="button">Quechua gracias Añay</button>
+              <button class="pill btn" data-say="Imaynalla kashanki" data-lang="quz" type="button">Quechua cómo estás Imaynalla kashanki</button>
+            </div>
+
+            <p style="margin:10px 0 0; color:var(--muted); font-size:13px">
+              La pronunciación depende de la voz del navegador. Si no hay voz de quechua, se usa una voz cercana.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <footer>
-        <p><a href="#">Impressum</a> • <a href="#">Datenschutz</a></p>
-        <p>Vorstellung und Recherche: Finn und Jos • Recherche: Nicklas • Visualisierung: Paul</p>
+      <span>Perú</span>
+      <span>Paul Liechti</span>
     </footer>
+  </main>
 
-    <script>
-        // Dark Mode Toggle
-        const toggle = document.getElementById('dark-mode-toggle');
-        toggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const icon = toggle.querySelector('i');
-            if (document.body.classList.contains('dark-mode')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            }
-        });
+  <button id="toTop" type="button" aria-label="Arriba">↑</button>
 
-        // Toggle Menu
-        function toggleMenu() {
-            const menuIcon = document.querySelector('.menu-icon');
-            const navMenu = document.querySelector('.nav-menu');
-            menuIcon.classList.toggle('active');
-            navMenu.classList.toggle('active');
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lbTop">
+      <button class="lbBtn" id="lbPrev" type="button">←</button>
+      <button class="lbBtn" id="lbClose" type="button">Cerrar</button>
+      <button class="lbBtn" id="lbNext" type="button">→</button>
+    </div>
+    <img id="lbImg" alt="Vista ampliada">
+  </div>
+
+  <script>
+    const $ = (s, el=document) => el.querySelector(s);
+    const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+
+    const progress = $("#progress");
+    const toTop = $("#toTop");
+    const navLinks = $$(".navlink");
+    const sections = ["arte","musica","lenguas"].map(id => document.getElementById(id));
+
+    function pad(n){ return String(n).padStart(2,"0"); }
+    function tickClock(){
+      const d = new Date();
+      $("#clock").textContent = `${pad(d.getHours())}.${pad(d.getMinutes())}`;
+    }
+
+    function updateUI(){
+      const doc = document.documentElement;
+      const st = doc.scrollTop || document.body.scrollTop;
+      const h = doc.scrollHeight - doc.clientHeight;
+      const p = h > 0 ? (st / h) * 100 : 0;
+      progress.style.width = p + "%";
+      toTop.classList.toggle("show", st > 650);
+
+      let current = "arte";
+      for(const s of sections){
+        const r = s.getBoundingClientRect();
+        if(r.top <= 130) current = s.id;
+      }
+      navLinks.forEach(a => a.classList.toggle("active", a.dataset.target === current));
+    }
+
+    const placeholderSVG = (label) =>
+      "data:image/svg+xml;charset=UTF-8," +
+      encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1">
+              <stop offset="0" stop-color="#6b5cff" stop-opacity="0.25"/>
+              <stop offset="1" stop-color="#ff6a3d" stop-opacity="0.25"/>
+            </linearGradient>
+          </defs>
+          <rect width="100%" height="100%" fill="#111"/>
+          <rect width="100%" height="100%" fill="url(#g)"/>
+          <text x="50%" y="50%" fill="#fff" font-size="44" font-family="Arial" text-anchor="middle">${label}</text>
+        </svg>
+      `);
+
+    function proxyUrl(u){
+      try{
+        const url = new URL(u);
+        const noProto = (url.host + url.pathname + (url.search || "")).replace(/^\/*/, "");
+        return "https://images.weserv.nl/?url=" + encodeURIComponent(noProto);
+      }catch(e){
+        return u;
+      }
+    }
+
+    function loadImg(img, realUrl){
+      const prox = proxyUrl(realUrl);
+      img.onerror = () => { img.src = placeholderSVG("Imagen no disponible"); };
+      img.src = prox;
+    }
+
+    function speak(text, lang){
+      const out = $("#sayOut");
+      out.textContent = `Escuchando: ${text}`;
+
+      if(!("speechSynthesis" in window)) return;
+
+      const trySpeak = (useLang) => {
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = useLang;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(u);
+      };
+
+      try{
+        const voices = window.speechSynthesis.getVoices() || [];
+        const want = (lang || "es-ES").toLowerCase();
+        const has = voices.some(v => (v.lang || "").toLowerCase().startsWith(want));
+        if(has){
+          trySpeak(lang || "es-ES");
+        }else{
+          trySpeak("es-ES");
         }
+      }catch(e){
+        try{
+          trySpeak(lang || "es-ES");
+        }catch(e2){}
+      }
+    }
 
-        // Scrollspy for Navigation
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const navbar = document.getElementById('navbar');
+    document.addEventListener("DOMContentLoaded", () => {
+      tickClock();
+      setInterval(tickClock, 1000 * 10);
 
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 70;
-                if (scrollY >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
+      window.addEventListener("scroll", updateUI);
+      window.addEventListener("resize", updateUI);
+      updateUI();
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
+      toTop.addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
 
-            // Change navbar background on scroll
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+      const themeBtn = $("#themeBtn");
+      const saved = localStorage.getItem("peruTheme");
+      if(saved === "dark") document.body.classList.add("dark");
+      themeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+        localStorage.setItem("peruTheme", document.body.classList.contains("dark") ? "dark" : "light");
+      });
+
+      const slides = $$(".slide");
+      const slideImgs = slides.map(s => s.querySelector("img"));
+      const realUrls = slides.map(s => s.dataset.src);
+
+      slideImgs.forEach((img, i) => loadImg(img, realUrls[i]));
+
+      const heroImg = $("#heroImg");
+      loadImg(heroImg, realUrls[0]);
+
+      $("#randomCover").addEventListener("click", () => {
+        const i = Math.floor(Math.random() * realUrls.length);
+        loadImg(heroImg, realUrls[i]);
+      });
+
+      const viewport = $("#viewport");
+      const info = $("#info");
+      const dots = $("#dots");
+      const prev = $("#prev");
+      const next = $("#next");
+
+      let idx = 0;
+      const total = slides.length;
+      let raf = 0;
+
+      function renderDots(){
+        dots.innerHTML = "";
+        for(let i=0;i<total;i++){
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "dot" + (i === idx ? " on" : "");
+          b.addEventListener("click", () => go(i));
+          dots.appendChild(b);
+        }
+      }
+
+      function go(i){
+        idx = Math.max(0, Math.min(total-1, i));
+        viewport.scrollTo({ left: idx * viewport.clientWidth, behavior:"smooth" });
+        updateCarouselUI();
+      }
+
+      function updateCarouselUI(){
+        info.textContent = `${idx+1} / ${total}`;
+        prev.disabled = idx === 0;
+        next.disabled = idx === total-1;
+        renderDots();
+      }
+
+      viewport.addEventListener("scroll", () => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const w = viewport.clientWidth || 1;
+          idx = Math.round(viewport.scrollLeft / w);
+          idx = Math.max(0, Math.min(total-1, idx));
+          updateCarouselUI();
         });
-    </script>
+      });
+
+      prev.addEventListener("click", () => go(idx-1));
+      next.addEventListener("click", () => go(idx+1));
+
+      document.addEventListener("keydown", (e) => {
+        if($("#lightbox").classList.contains("open")){
+          if(e.key === "ArrowLeft") lbGo(lbIndex-1);
+          if(e.key === "ArrowRight") lbGo(lbIndex+1);
+          if(e.key === "Escape") closeLB();
+          return;
+        }
+        if(e.key === "ArrowLeft") go(idx-1);
+        if(e.key === "ArrowRight") go(idx+1);
+      });
+
+      updateCarouselUI();
+
+      const arteFacts = [
+        "Los tejidos andinos usan patrones y colores con significado cultural.",
+        "La cerámica tradicional refleja estilos antiguos y regionales.",
+        "El arte moderno en Lima incluye murales sobre historia y sociedad."
+      ];
+      $("#arteDato").addEventListener("click", () => {
+        $("#arteOut").textContent = arteFacts[Math.floor(Math.random()*arteFacts.length)];
+      });
+
+      const lightbox = $("#lightbox");
+      const lbImg = $("#lbImg");
+      const lbClose = $("#lbClose");
+      const lbPrev = $("#lbPrev");
+      const lbNext = $("#lbNext");
+      let lbIndex = 0;
+
+      function openLB(i){
+        lbIndex = i;
+        loadImg(lbImg, realUrls[lbIndex]);
+        lightbox.classList.add("open");
+        lightbox.setAttribute("aria-hidden","false");
+        lbPrev.disabled = lbIndex === 0;
+        lbNext.disabled = lbIndex === total-1;
+      }
+      function closeLB(){
+        lightbox.classList.remove("open");
+        lightbox.setAttribute("aria-hidden","true");
+        lbImg.src = "";
+      }
+      function lbGo(i){
+        lbIndex = Math.max(0, Math.min(total-1, i));
+        openLB(lbIndex);
+      }
+
+      slides.forEach((s, i) => s.addEventListener("click", () => openLB(i)));
+      $("#heroMedia").addEventListener("click", () => openLB(0));
+      lbClose.addEventListener("click", closeLB);
+      lbPrev.addEventListener("click", () => lbGo(lbIndex-1));
+      lbNext.addEventListener("click", () => lbGo(lbIndex+1));
+      lightbox.addEventListener("click", (e) => { if(e.target === lightbox) closeLB(); });
+
+      $$(".btn[data-check]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const name = btn.dataset.check;
+          const ans = btn.dataset.ans;
+          const chosen = document.querySelector(`input[name="${name}"]:checked`);
+          const out = document.querySelector(`[data-out="${name}"]`);
+          out.className = "feedback";
+          if(!chosen){
+            out.textContent = "Elige una respuesta.";
+            return;
+          }
+          if(chosen.value === ans){
+            out.textContent = "Correcto.";
+            out.classList.add("ok");
+          }else{
+            out.textContent = "Incorrecto.";
+            out.classList.add("bad");
+          }
+        });
+      });
+
+      let muted = false;
+      $("#muteBtn").addEventListener("click", () => {
+        muted = !muted;
+        const frames = $$(".ytframe");
+        frames.forEach(f => {
+          const url = new URL(f.src);
+          url.searchParams.set("mute", muted ? "1" : "0");
+          f.src = url.toString();
+        });
+        $("#muteBtn").textContent = muted ? "Activar sonido" : "Silenciar";
+      });
+
+      $("#sayBtn").addEventListener("click", () => speak("Hola, Perú", "es-ES"));
+
+      const ensureVoices = () => { try{ window.speechSynthesis.getVoices(); }catch(e){} };
+      ensureVoices();
+      if("speechSynthesis" in window){
+        window.speechSynthesis.onvoiceschanged = ensureVoices;
+      }
+
+      $$("[data-say]").forEach(b => {
+        b.addEventListener("click", () => {
+          const text = b.dataset.say || "";
+          const lang = b.dataset.lang || "es-ES";
+          speak(text, lang);
+        });
+      });
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("on"); });
+      }, {threshold: 0.10});
+      $$(".reveal").forEach(el => io.observe(el));
+    });
+  </script>
 </body>
 </html>
